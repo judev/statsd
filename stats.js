@@ -95,8 +95,10 @@ config.configFile(process.argv[2], function (config, oldConfig) {
       var metrics = msg.toString().split("\n");
 
       for (midx in metrics) {
-        if (config.dumpMessages) { util.log(metrics[midx].toString()); }
-        var bits = metrics[midx].toString().split(':');
+        var line = metrics[midx].toString();
+        if (config.dumpMessages) { util.log(line); }
+        if (line.length === 0) continue;
+        var bits = line.split(':');
         var key = bits.shift()
                       .replace(/\s+/g, '_')
                       .replace(/\//g, '-')
